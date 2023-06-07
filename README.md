@@ -1,2 +1,2 @@
 # SamplesForTRMP
-Samples for subject "Mobile Application Development Technologies (Технологии разработки мобильных приложений)"
+Samples for subject "Mobile Application Development Technologies" (Примеры для дисциплины "Технологии разработки мобильных приложений")
