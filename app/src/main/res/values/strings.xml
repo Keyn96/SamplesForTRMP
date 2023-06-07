@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">My First Application J</string>
+    <string name="text_view_hello">My First Application</string>
+</resources>
