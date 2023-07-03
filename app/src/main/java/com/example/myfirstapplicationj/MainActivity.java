@@ -1,11 +1,11 @@
 package com.example.myfirstapplicationj;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
     Button mButton0, mButton1, mButton2, mButton3, mButton4, mButton5, mButton6, mButton7, mButton8,
@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     float mValueOne, mValueTwo;
     boolean mAddition, mSubtract, mMultiplication, mDivision;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,142 +36,72 @@ public class MainActivity extends AppCompatActivity {
         mButtonDiv = (Button) findViewById(R.id.buttonDiv);
         mButtonEq = (Button) findViewById(R.id.buttonEq);
         mEditText = (EditText) findViewById(R.id.editText1);
-        mButton1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "1");
+        mButton1.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "1"));
+        mButton2.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "2"));
+        mButton3.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "3"));
+        mButton4.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "4"));
+        mButton5.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "5"));
+        mButton6.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "6"));
+        mButton7.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "7"));
+        mButton8.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "8"));
+        mButton9.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "9"));
+        mButton0.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "0"));
+        mButtonAdd.setOnClickListener(v -> {
+            if (mEditText == null) {
+                mEditText.setText("");
+            } else {
+                mValueOne = Float.parseFloat(mEditText.getText() + "");
+                mAddition = true;
+                mEditText.setText(null);
             }
         });
-        mButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "2");
+        mButtonSub.setOnClickListener(v -> {
+            if (mEditText == null) {
+                mEditText.setText("");
+            } else {
+                mValueOne = Float.parseFloat(mEditText.getText() + "");
+                mSubtract = true;
+                mEditText.setText(null);
             }
         });
-        mButton3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "3");
+        mButtonMul.setOnClickListener(v -> {
+            if (mEditText == null) {
+                mEditText.setText("");
+            } else {
+                mValueOne = Float.parseFloat(mEditText.getText() + "");
+                mMultiplication = true;
+                mEditText.setText(null);
             }
         });
-        mButton4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "4");
+        mButtonDiv.setOnClickListener(v -> {
+            if (mEditText == null) {
+                mEditText.setText("");
+            } else {
+                mValueOne = Float.parseFloat(mEditText.getText() + "");
+                mDivision = true;
+                mEditText.setText(null);
             }
         });
-        mButton5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "5");
+        mButtonEq.setOnClickListener(v -> {
+            mValueTwo = Float.parseFloat(mEditText.getText() + "");
+            if (mAddition) {
+                mEditText.setText(mValueOne + mValueTwo + "");
+                mAddition = false;
+            }
+            if (mSubtract) {
+                mEditText.setText(mValueOne - mValueTwo + "");
+                mSubtract = false;
+            }
+            if (mMultiplication) {
+                mEditText.setText(mValueOne * mValueTwo + "");
+                mMultiplication = false;
+            }
+            if (mDivision) {
+                mEditText.setText(mValueOne / mValueTwo + "");
+                mDivision = false;
             }
         });
-        mButton6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "6");
-            }
-        });
-        mButton7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "7");
-            }
-        });
-        mButton8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "8");
-            }
-        });
-        mButton9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "9");
-            }
-        });
-        mButton0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + "0");
-            }
-        });
-        mButtonAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mEditText == null) {
-                    mEditText.setText("");
-                } else {
-                    mValueOne = Float.parseFloat(mEditText.getText() + "");
-                    mAddition = true;
-                    mEditText.setText(null);
-                }
-            }
-        });
-        mButtonSub.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mEditText == null) {
-                    mEditText.setText("");
-                } else {
-                    mValueOne = Float.parseFloat(mEditText.getText() + "");
-                    mSubtract = true;
-                    mEditText.setText(null);
-                }
-            }
-        });
-        mButtonMul.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mEditText == null) {
-                    mEditText.setText("");
-                } else {
-                    mValueOne = Float.parseFloat(mEditText.getText() + "");
-                    mMultiplication = true;
-                    mEditText.setText(null);
-                }
-            }
-        });
-        mButtonDiv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mEditText == null) {
-                    mEditText.setText("");
-                } else {
-                    mValueOne = Float.parseFloat(mEditText.getText() + "");
-                    mDivision = true;
-                    mEditText.setText(null);
-                }
-            }
-        });
-        mButtonEq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mValueTwo = Float.parseFloat(mEditText.getText() + "");
-                if (mAddition == true) {
-                    mEditText.setText(mValueOne + mValueTwo + "");
-                    mAddition = false;
-                }
-                if (mSubtract == true) {
-                    mEditText.setText(mValueOne - mValueTwo + "");
-                    mSubtract = false;
-                }
-                if (mMultiplication == true) {
-                    mEditText.setText(mValueOne * mValueTwo + "");
-                    mMultiplication = false;
-                }
-                if (mDivision == true) {
-                    mEditText.setText(mValueOne / mValueTwo + "");
-                    mDivision = false;
-                }
-            }
-        });
-        mButtonPoint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEditText.setText(mEditText.getText() + ".");
-            }
-        });
+        mButtonPoint.setOnClickListener(v -> mEditText.setText(mEditText.getText() + "."));
 
     }
 }
