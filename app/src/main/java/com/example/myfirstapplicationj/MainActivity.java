@@ -1,9 +1,12 @@
 package com.example.myfirstapplicationj;
 
+import android.annotation.SuppressLint;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,18 +27,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     Sensor mLightSensor;
     float mMaxValue;
     float mValue;
+    @SuppressLint("CutPasteId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mAccelerometerX = (TextView)findViewById(R.id.textView2);
-        mAccelerometerY = (TextView)findViewById(R.id.textView3);
-        mAccelerometerZ = (TextView)findViewById(R.id.textView4);
-        mMagneticX = (TextView)findViewById(R.id.textView6);
-        mMagneticY = (TextView)findViewById(R.id.textView7);
-        mMagneticZ = (TextView)findViewById(R.id.textView8);
-        mProximity = (TextView)findViewById(R.id.textView10);
-        mLight = (TextView)findViewById(R.id.textView12);
+        mAccelerometerY = (TextView)findViewById(R.id.textView2);
+        mAccelerometerZ = (TextView)findViewById(R.id.textView3);
+        mMagneticX = (TextView)findViewById(R.id.textView5);
+        mMagneticY = (TextView)findViewById(R.id.textView6);
+        mMagneticZ = (TextView)findViewById(R.id.textView7);
+        mProximity = (TextView)findViewById(R.id.textView9);
+        mLight = (TextView)findViewById(R.id.textView11);
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mAccelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mMagneticSensor = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mLightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         mMaxValue = mLightSensor.getMaximumRange();
     }
+    @SuppressLint("SetTextI18n")
     @Override
     public void onSensorChanged(SensorEvent event)
     {
@@ -71,10 +76,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onStart() {
         super.onStart();
-        sensorManager.registerListener(this, mAccelerometerSensor, sensorManager.SENSOR_DELAY_FASTEST);
-        sensorManager.registerListener(this, mMagneticSensor, sensorManager.SENSOR_DELAY_FASTEST);
-        sensorManager.registerListener(this, mProximitySensor, sensorManager.SENSOR_DELAY_FASTEST);
-        sensorManager.registerListener(this, mLightSensor, sensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this, mAccelerometerSensor, SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this, mMagneticSensor, SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this, mProximitySensor, SensorManager.SENSOR_DELAY_FASTEST);
+        sensorManager.registerListener(this, mLightSensor, SensorManager.SENSOR_DELAY_FASTEST);
     }
     @Override
     protected void onStop() {

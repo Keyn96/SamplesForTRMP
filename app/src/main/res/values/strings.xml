@@ -2,8 +2,11 @@
     <string name="app_name">My First Application J</string>
     <string name="text_view_hello">My First Application</string>
     <string name="TextView" />
-    <string name="call_second_activity">Call second activity</string>
-    <string name="second_activity">Second Activity</string>
-    <string name="go_to_first_activity">Go Back</string>
-    <string name="editMessage" />
+    <string name="Accelerometer">Акселерометр</string>
+    <string name="proximity">Приближение</string>
+    <string name="light">Освещенность</string>
+    <string name="x">X</string>
+    <string name="y">Y</string>
+    <string name="z">Z</string>
+    <string name="magnetic">Магнитный сенсор</string>
 </resources>
