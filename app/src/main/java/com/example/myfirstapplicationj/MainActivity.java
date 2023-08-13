@@ -3,11 +3,11 @@ package com.example.myfirstapplicationj;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
+import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,72 +17,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(new DrawView(this));
     }
 
-    static class DrawView extends SurfaceView implements SurfaceHolder.Callback {
-        private DrawThread drawThread;
+    static class DrawView extends View {
+        Paint p;
+        Rect rect;
 
         public DrawView(Context context) {
 
             super(context);
-            getHolder().addCallback(this);
+            p = new Paint();
+            rect = new Rect();
         }
 
         @Override
-        public void surfaceChanged(@NonNull SurfaceHolder holder, int format, int width, int height) {
-
-        }
-
-        @Override
-        public void surfaceCreated(@NonNull SurfaceHolder holder) {
-            drawThread = new DrawThread(getHolder());
-            drawThread.setRunning(true);
-            drawThread.start();
-
-        }
-
-        @Override
-        public void surfaceDestroyed(@NonNull SurfaceHolder holder) {
-            boolean retry = true;
-            drawThread.setRunning(false);
-            while (retry) {
-                try {
-                    drawThread.join();
-                    retry = false;
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-
-        }
-
-        static class DrawThread extends Thread {
-            private boolean running = false;
-            private SurfaceHolder surfaceHolder;
-
-            public DrawThread(SurfaceHolder surfaceHolder) {
-                this.surfaceHolder = surfaceHolder;
-            }
-
-            public void setRunning(boolean running) {
-                this.running = running;
-            }
-
-            @Override
-            public void run() {
-                Canvas canvas;
-                while (running) {
-                    canvas = null;
-                    try {
-                        canvas = surfaceHolder.lockCanvas(null);
-                        if (canvas == null)
-                            continue;
-                        canvas.drawColor(Color.GREEN);
-                    } finally {
-                        if (canvas != null) {
-                            surfaceHolder.unlockCanvasAndPost(canvas);
-                        }
-                    }
-                }
-            }
+        protected void onDraw(Canvas canvas) {
+            canvas.drawARGB(80, 102, 204, 255);
+            p.setColor(Color.RED);
+            p.setStrokeWidth(10);
+            canvas.drawPoint(50, 50, p);
+            canvas.drawLine(100, 100, 500, 50, p);
+            canvas.drawCircle(100, 200, 50, p);
+            canvas.drawRect(200, 150, 400, 200, p);
+            rect.set(250, 300, 350, 500);
+            canvas.drawRect(rect, p);
         }
     }
+
 }
