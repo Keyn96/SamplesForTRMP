@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,13 +19,17 @@ public class MainActivity extends AppCompatActivity {
 
     static class DrawView extends View {
         Paint p;
-        Rect rect;
+        RectF rectf;
+        float[] points;
+        float[] points1;
 
         public DrawView(Context context) {
 
             super(context);
             p = new Paint();
-            rect = new Rect();
+            rectf = new RectF(700,100,800,150);
+            points = new float[]{100,50,150,100,150,200,50,200,50,100};
+            points1 = new float[]{300,200,600,200,300,300,600,300,400,100,400,400,500,100,500,400};
         }
 
         @Override
@@ -33,12 +37,26 @@ public class MainActivity extends AppCompatActivity {
             canvas.drawARGB(80, 102, 204, 255);
             p.setColor(Color.RED);
             p.setStrokeWidth(10);
-            canvas.drawPoint(50, 50, p);
-            canvas.drawLine(100, 100, 500, 50, p);
-            canvas.drawCircle(100, 200, 50, p);
-            canvas.drawRect(200, 150, 400, 200, p);
-            rect.set(250, 300, 350, 500);
-            canvas.drawRect(rect, p);
+            canvas.drawPoints(points, p);
+            canvas.drawLines(points1, p);
+            p.setColor(Color.GREEN);
+            canvas.drawRoundRect(rectf,20,20,p);
+            rectf.offset(0,150);
+            canvas.drawOval(rectf, p);
+            rectf.offsetTo(900,100);
+            rectf.inset(0,-25);
+            canvas.drawArc(rectf,90,270,true,p);
+            rectf.offset(0,150);
+            canvas.drawArc(rectf,90,270,false,p);
+            p.setStrokeWidth(3);
+            canvas.drawLine(150,450,150,600,p);
+            p.setColor(Color.BLUE);
+            p.setTextSize(30);
+            canvas.drawText("text left",150,500,p);
+            p.setTextAlign(Paint.Align.CENTER);
+            canvas.drawText("text center",150,525,p);
+            p.setTextAlign(Paint.Align.RIGHT);
+            canvas.drawText("text right",150,550,p);
         }
     }
 
