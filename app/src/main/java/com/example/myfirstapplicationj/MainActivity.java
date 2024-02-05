@@ -1,52 +1,71 @@
 package com.example.myfirstapplicationj;
 
-import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
+    StringBuilder stringBuilder = new StringBuilder();
+    TextView textView;
+    int upPI = 0;
+    int downPI = 0;
+    boolean inTouch = false;
+    String result = "";
+
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new DrawView(this));
+        textView = new TextView(this);
+        textView.setTextSize(30);
+        textView.setOnTouchListener(this);
+        setContentView(textView);
     }
 
-    static class DrawView extends View {
-        Paint p;
-        Rect rect;
-        StringBuilder stringBuilder;
-        public DrawView(Context context) {
-
-            super(context);
-            p = new Paint();
-            rect = new Rect(100,200,200,300);
-            stringBuilder = new StringBuilder();
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        int actionMask = motionEvent.getActionMasked();
+        int pointerIndex = motionEvent.getActionIndex();
+        int pointerCount = motionEvent.getPointerCount();
+        switch (actionMask) {
+            case MotionEvent.ACTION_DOWN:
+                inTouch = true;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                downPI = pointerIndex;
+                break;
+            case MotionEvent.ACTION_UP:
+                inTouch = false;
+                stringBuilder.setLength(0);
+            case MotionEvent.ACTION_POINTER_UP:
+                upPI = pointerIndex;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                stringBuilder.setLength(0);
+                for (int i = 0; i<10; i++){
+                   stringBuilder.append("Index = ").append(i);
+                   if(i<pointerCount){
+                       stringBuilder.append(", ID = ").append(motionEvent.getPointerId(i));
+                       stringBuilder.append(", X = ").append(motionEvent.getX(i));
+                       stringBuilder.append(", Y = ").append(motionEvent.getY(i));
+                   }else {
+                       stringBuilder.append(", ID = ");
+                       stringBuilder.append(", X = ");
+                       stringBuilder.append(", Y = ");
+                   }
+                   stringBuilder.append("\r\n");
+                }
+                break;
         }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            canvas.drawARGB(80,102,204,255);
-            p.setColor(Color.BLUE);
-            p.setStrokeWidth(10);
-            p.setTextSize(30);
-            stringBuilder.setLength(0);
-            stringBuilder.append("width = ").append(getWidth()).append(", height = ").append(getHeight());
-            canvas.drawText(stringBuilder.toString(),100,100, p);
-            p.setStyle(Paint.Style.FILL);
-            canvas.drawRect(rect, p);
-            p.setStyle(Paint.Style.STROKE);
-            rect.offset(150,0);
-            canvas.drawRect(rect, p);
-            p.setStyle(Paint.Style.FILL_AND_STROKE);
-            rect.offset(150,0);
-            canvas.drawRect(rect, p);
+        result = "down: " + downPI +"\n" + "up: " + upPI + "\n";
+        if (inTouch){
+            result+= "pointerCount = " + pointerCount + "\n" +stringBuilder.toString();
         }
+        textView.setText(result);
+        return true;
     }
-
 }
